@@ -7,43 +7,41 @@ const tasksOfTheDay = [
 
 // Copie du tableau original avec l'opérateur spread pour ne pas modifier tasksOfTheDay
 let tasklist = [...tasksOfTheDay];
+const newTask = { title: 'Faire du sport', done: false };
 
 // Ajoute une nouvelle tâche à la liste avec le statut done = false par défaut
-let addTask = (tasklist, newTask) => {
-    tasklist.push({ title: newTask, done: false });
-    return tasklist;
-};
+const addTask = (tasklist, newTask) => [...tasklist, newTask]; // Utilise spread pour créer un nouveau tableau avec la nouvelle tâche
 
 // Supprime une tâche de la liste en filtrant par titre
-let removeTask = (tasklist, title) => {
+const removeTask = (tasklist, title) => {
     tasklist = tasklist.filter(task => task.title !== title);
     return tasklist;
 }
 
 // Change le statut done d'une tâche identifiée par son titre
 // Utilise map pour créer un nouveau tableau et spread pour ne pas muter l'objet d'origine
-let toggleTaskStatus = (tasklist, title, done) => {
-    tasklist = tasklist.map(task => ({ ...task, done: task.title === title ? done : task.done }));
-    return tasklist;
+const toggleTaskStatus = function (task) {
+    task.done = task.done ? false : true;
+    return task;
 }
 
 // Retourne toutes les tâches si status est undefined,
 // sinon filtre les tâches selon leur statut (true = terminées, false = non terminées)
-let showTasks = (tasklist, status) => {
+const showTasks = (tasklist, status) => {
     return status === undefined ? tasklist : tasklist.filter(task => task.done === status);
 }
 
 // Ajout d'une tâche (modifie directement le tableau par référence avec push)
-addTask(tasklist, 'Faire du sport');
+tasklist = addTask(tasklist, newTask);
 console.log(tasklist);
 
 // Suppression de la tâche ajoutée  tasklist est réassigné car filter retourne un nouveau tableau
-tasklist = removeTask(tasklist, 'Faire du sport');
+tasklist = removeTask(tasklist, newTask);
 console.log(tasklist);
 
 // Marque la tâche 'Planter le jardin' comme terminée (done = true)
-tasklist = toggleTaskStatus(tasklist, 'Planter le jardin', true);
-console.log(tasklist);
+toggleTaskStatus(tasklist[2]);
+console.log(tasklist[2]);
 
 console.log(showTasks(tasklist, true));  // status = true  retourne les tâches terminées
 console.log(showTasks(tasklist, false)); // status = false retourne les tâches non terminées
