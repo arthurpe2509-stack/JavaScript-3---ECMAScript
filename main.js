@@ -35,8 +35,8 @@ const showTasks = (tasklist, status) => {
 tasklist = addTask(tasklist, newTask);
 console.log(tasklist);
 
-// Suppression de la tâche ajoutée  tasklist est réassigné car filter retourne un nouveau tableau
-tasklist = removeTask(tasklist, newTask);
+// Suppression de la tâche tasklist est réassigné car filter retourne un nouveau tableau
+tasklist = removeTask(tasklist, 'Planter le jardin');
 console.log(tasklist);
 
 // Marque la tâche 'Planter le jardin' comme terminée (done = true)
